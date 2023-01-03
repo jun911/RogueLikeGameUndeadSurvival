@@ -8,7 +8,7 @@ namespace Cinemachine.Examples
     {
         [Tooltip("The platform from which LoseSightAtRange is calculated")]
         public Transform LowerPlatform;
-        
+
         [Tooltip("The weight of a transform in the target group is 1 when above the Lower Platform. When a transform is " +
             "below the Lower Platform, then its weight decreases based on the distance between the transform and the " +
             "Lower Platform and it reaches 0 at LoseSightAtRange. If you set this value to 0, then the transform is removed " +
@@ -16,14 +16,14 @@ namespace Cinemachine.Examples
         [Range(0, 30)]
         public float LoseSightAtRange = 20;
 
-        CinemachineTargetGroup m_TargetGroup;
+        private CinemachineTargetGroup m_TargetGroup;
 
-        void Awake()
+        private void Awake()
         {
             m_TargetGroup = GetComponent<CinemachineTargetGroup>();
         }
 
-        void Update()
+        private void Update()
         {
             // iterate through each target in the targetGroup
             for (var index = 0; index < m_TargetGroup.m_Targets.Length; index++)

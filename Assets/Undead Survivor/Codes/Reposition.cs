@@ -27,6 +27,8 @@ public class Reposition : MonoBehaviour
         float dirX = playerDir.x >= 0 ? 1 : -1;
         float dirY = playerDir.y >= 0 ? 1 : -1;
 
+        //Debug.Log($"transform.tag={transform.tag}");
+
         switch (transform.tag)
         {
             case "Ground":
@@ -41,8 +43,6 @@ public class Reposition : MonoBehaviour
 
                 break;
             case "Enemy":
-                Debug.Log("enemy hit");
-
                 if(coll.enabled)
                 {
                     transform.Translate(playerDir * 20 + new Vector3(Random.Range(-3f,3f), Random.Range(-3f,3f)), 0f);

@@ -6,15 +6,15 @@ public class ActivateOnKeypress : MonoBehaviour
     public int PriorityBoostAmount = 10;
     public GameObject Reticle;
 
-    Cinemachine.CinemachineVirtualCameraBase vcam;
-    bool boosted = false;
+    private Cinemachine.CinemachineVirtualCameraBase vcam;
+    private bool boosted = false;
 
-    void Start()
+    private void Start()
     {
         vcam = GetComponent<Cinemachine.CinemachineVirtualCameraBase>();
     }
 
-    void Update()
+    private void Update()
     {
         if (vcam != null)
         {
