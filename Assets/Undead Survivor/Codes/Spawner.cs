@@ -20,8 +20,8 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
+        level = GameManager.instance.GetLevel();
         timer += Time.deltaTime;
-        level = Mathf.FloorToInt(GameManager.instance.gameTime / 10f);
 
         if (timer > spawnData[level].spawnTime)
         {
@@ -32,8 +32,17 @@ public class Spawner : MonoBehaviour
 
     private void Spwan()
     {
-        int spawnCount = GameManager.instance.poolManager.GetCount(level);
-        if(spawnCount == spawnData[level].maxSpawn)
+        if(IsMaxSpawnCount())
+        { 
+            return;
+        }
+
+        if(IsMaxSpawnWaveCount()) // not working
+        {
+            return;
+        }
+
+        if(IsMaxEnemySpawnTime())
         {
             return;
         }
@@ -41,6 +50,30 @@ public class Spawner : MonoBehaviour
         GameObject enemy = GameManager.instance.poolManager.Get(0);
         enemy.transform.position = spawnPoint[UnityEngine.Random.Range(1, spawnPoint.Length)].transform.position;
         enemy.GetComponent<Enemy>().Init(spawnData[level]);
+    }
+
+    private bool IsMaxSpawnWaveCount()
+    {
+        //int[] levelSpawnCount = new int[5];
+
+        //Debug.Log("levelSpawnCount[level] : " + levelSpawnCount[level]);
+
+        //if (levelSpawnCount[level] > spawnData[level].maxSpawn)
+        //{
+        //    return;
+        //} 
+
+        return false;
+    }
+
+    private bool IsMaxEnemySpawnTime()
+    {
+        return GameManager.instance.totalPlayTime == GameManager.instance.maxSpawnTime;
+    }
+
+    private bool IsMaxSpawnCount()
+    {
+        return GameManager.instance.poolManager.totalSpawnCount >= GameManager.instance.maxSpawnCount;
     }
 }
 

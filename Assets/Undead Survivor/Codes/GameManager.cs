@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,9 +6,16 @@ public class GameManager : MonoBehaviour
     public PoolManager poolManager;
     public Player player;
 
-    public float gameTime;
-    public float maxGameTime = 2 * 10f;
+    public float maxSpawnTime = 2 * 10f;
+    public float waveTickTime = 10f;
+    public int maxSpawnCount = 0;
+    public int maxLevel = 4;
+    public float totalSpawnCount;
+    public float totalPlayTime;
 
+    [SerializeField] 
+    private int level;
+    
     private void Awake()
     {
         instance = this;
@@ -18,11 +23,20 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        gameTime += Time.deltaTime;
+        totalPlayTime += Time.deltaTime;
 
-        if(gameTime > maxGameTime)
+        if(totalPlayTime > maxSpawnTime)
         {
-            gameTime = maxGameTime;
+            totalPlayTime = maxSpawnTime;
         }
+
+        totalSpawnCount = poolManager.totalSpawnCount;
+    }
+
+    public int GetLevel()
+    {
+        level = Mathf.FloorToInt(totalPlayTime / waveTickTime);
+
+        return level >= maxLevel ? maxLevel : level;
     }
 }
